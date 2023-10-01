@@ -42,6 +42,7 @@
                 vertical-align: middle;
             }
 
+            
         </style>
     </head>
     <body>
@@ -288,8 +289,90 @@
 
 
 
+                                        
+                                        
+                                        
+                                        
+                                        
+        <!--DOCTOR PROFILE MODAL VIEWER-->
+
+        <div class="modal fade" id="doctorProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header primary-background text-white text-centre">
+                        <h5 class="modal-title" id="exampleModalLabel">Profile Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <img src="img/<%= patient.getProfilePicture()%>" class="img-fluid" style="border-radius: 50%; max-width: 150px;">
+                            <br>
+                            <h5 class="modal-title mt-3" id="exampleModalLabel"><%= patient.getFirstName() + " " + patient.getLastName()%></h5>
+                        </div>
+
+                        <div id="profile-details" class="container mt-3">
+                            <table class="table table-hover">
+                                <tbody class="primary-background text-white">
+                                    <tr>
+                                        <th scope="row">Patient ID</th>
+                                        <td><%=patient.getPid()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Username</th>
+                                        <td><%=patient.getUsername()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">First Name</th>
+                                        <td><%= patient.getFirstName()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Last Name</th>
+                                        <td><%= patient.getLastName()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Password</th>
+                                        <td type="password"><%= StringUtils.repeat("*", patient.getPassword().length())%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email</th>
+                                        <td><%=patient.getEmail()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Emergency Contact</th>
+                                        <td><%= patient.getEmergencyContact()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Description</th>
+                                        <td><%=patient.getDescription()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Gender</th>
+                                        <td><%=patient.getGender()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address</th>
+                                        <td><%=patient.getAddress()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Account Created On</th>
+                                        <td><%=patient.getCreate_time()%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
 
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn primary-background text-white" data-dismiss="modal">Close</button>
+                        <button id="editBtn" class="btn ">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

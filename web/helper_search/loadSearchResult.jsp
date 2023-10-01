@@ -37,8 +37,8 @@
 
             %>
 
-                    <div class="coll-md-6 mt-2 ml-2 mb-2" id="<%=doctor.getId()%>">
-                        <a href="#" id="linker"><img src="img/<%= doctor.getProfilePicture() %>" width="30px" alt="profilePicture"/>&nbsp;<%= doctor.getFullName() %></a>
+                    <div class="container coll-md-6 mt-2 ml-2 mb-2" id="<%=doctor.getId()%>">
+                        <a href="#" data-toggle="modal" data-target="#doctorProfileModal" style="padding-right: 30%" class="badge badge-light" id="linker"><img src="img/<%= doctor.getProfilePicture() %>" width="30px" alt="profilePicture"/>&nbsp;&nbsp;<%= doctor.getFullName() %></a>
                     </div>
 
             <%

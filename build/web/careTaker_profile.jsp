@@ -1,6 +1,7 @@
 <%@page import="com.shm.careBridge.entities.CareTaker" %>
 <%@page errorPage="error_page.jsp" %>
 <%@page import="org.apache.commons.lang3.StringUtils" %>
+<%@page import="com.shm.careBridge.entities.PromptMessage" %>
 <%
     CareTaker careTaker = (CareTaker)session.getAttribute("currentCareTaker");
     if(careTaker == null){
@@ -59,7 +60,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="nav-link active" href="#!" data-toggle="modal" data-target="#profileModal">Profile Settings</a>
-                            <a class="nav-link active" href="DoctorLogoutServlet">Logout</a>
+                            <a class="nav-link active" href="CareTakerLogoutServlet">Logout</a>
                         </div>
                     </li>
 
@@ -73,6 +74,24 @@
         </nav>
 
         <!--End of NavBar-->
+        
+        
+        
+        
+        <%
+                    PromptMessage promptMessage = (PromptMessage)session.getAttribute("promptMessage");
+                    if(promptMessage!=null){
+        %>
+        <div class="alert <%= promptMessage.getCssClass() %> text-center"  role="alert">
+            <%= promptMessage.getContent() %>
+        </div>
+        <%
+                        session.removeAttribute("promptMessage");                            
+                    }
+        %>
+        
+        
+        
 
         <!--Start of Profile (in modal)-->
 

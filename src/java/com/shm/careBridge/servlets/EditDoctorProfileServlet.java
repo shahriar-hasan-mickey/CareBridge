@@ -6,6 +6,7 @@ package com.shm.careBridge.servlets;
 
 import com.shm.careBridge.dao.DoctorDao;
 import com.shm.careBridge.entities.Doctor;
+import com.shm.careBridge.entities.PromptMessage;
 import com.shm.careBridge.helper.ConnectionProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +22,6 @@ import jakarta.servlet.http.Part;
  *
  * @author akhlaq-aqidah
  */
-
-
-
 @MultipartConfig
 public class EditDoctorProfileServlet extends HttpServlet {
 
@@ -53,12 +51,11 @@ public class EditDoctorProfileServlet extends HttpServlet {
             String specialization = request.getParameter("specialization");
             String affiliation = request.getParameter("affiliation");
             String regNoMBBS = request.getParameter("regNoMBBS");
-
-
-//TODO : INORDER TO ALLOW MULTIPART FORM DATA TO FOLLOWING ANNOTATION IS A MUST JUST BEFORE THE FUNCTION : @MultipartConfig
             
-            if (email != "" & firstName != "" & password != "" & bio != "" & address != "" & gender != "" & profilePicture != null & profilePictureName != null & profilePictureName != "" & specialization!="" & regNoMBBS !="" & affiliation!="") {
-                HttpSession session = request.getSession();
+            HttpSession session = request.getSession();
+//TODO : INORDER TO ALLOW MULTIPART FORM DATA TO FOLLOWING ANNOTATION IS A MUST JUST BEFORE THE FUNCTION : @MultipartConfig
+            if (email != "" & firstName != "" & password != "" & bio != "" & address != "" & gender != "" & profilePicture != null & profilePictureName != null & profilePictureName != "" & specialization != "" & regNoMBBS != "" & affiliation != "") {
+                
                 Doctor doctor = (Doctor) session.getAttribute("currentDoctor");
                 doctor.setEmail(email);
                 doctor.setFirstName(firstName);
@@ -73,26 +70,37 @@ public class EditDoctorProfileServlet extends HttpServlet {
                 doctor.setAffiliation(affiliation);
 
                 DoctorDao doctorDao = new DoctorDao(ConnectionProvider.getConnection());
-                
-                
+
 //Checking if provided regNo exists or not
                 Boolean regNoMBBSExist = doctorDao.getDoctorCountByRegNoMBBS(regNoMBBS);
-                if(!regNoMBBSExist){
+                if (!regNoMBBSExist) {
                     Boolean updateStatus = doctorDao.updateDoctorDetials(doctor);
 
                     if (updateStatus) {
-                        out.println("Updated Successfully");
+                        PromptMessage promptMessage = new PromptMessage("Updated Successfully", "success", "alert-success");
+                        session.setAttribute("promptMessage", promptMessage);
+                        response.sendRedirect("doctor_profile.jsp");
                     } else {
-                        out.println("Something Went Wrong");
+                        PromptMessage promptMessage = new PromptMessage("Something Went Wrong", "danger", "alert-danger");
+                        session.setAttribute("promptMessage", promptMessage);
+                        response.sendRedirect("doctor_profile.jsp");
                     }
-                }else{
-                    String output = String.format("Registration No. %s aready Exists, Enter a valid Registration No", regNoMBBS);
-                    out.println(output);
+                } else {
+
+                    PromptMessage promptMessage = new PromptMessage(String.format("Registration No. %s aready Exists, Enter a valid Registration No", regNoMBBS), "danger", "alert-danger");
+                    session.setAttribute("promptMessage", promptMessage);
+
+                    response.sendRedirect("doctor_profile.jsp");
+                    
+//                    out.println(output);
                 }
             } else {
-                out.println("Required Fields cannot be empty");
+                PromptMessage promptMessage = new PromptMessage("Required Fields cannot be empty", "danger", "alert-danger");
+                session.setAttribute("promptMessage", promptMessage);
+
+                response.sendRedirect("doctor_profile.jsp");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

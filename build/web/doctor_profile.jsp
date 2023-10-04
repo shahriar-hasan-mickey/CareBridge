@@ -1,6 +1,7 @@
 <%@page import="com.shm.careBridge.entities.Doctor" %>
 <%@page errorPage="error_page.jsp" %>
 <%@page import="org.apache.commons.lang3.StringUtils" %>
+<%@page import="com.shm.careBridge.entities.PromptMessage" %>
 <%
     Doctor doctor = (Doctor)session.getAttribute("currentDoctor");
     if(doctor == null){
@@ -76,6 +77,24 @@
         </nav>
 
         <!--End of NavBar-->
+        
+        
+        
+        <%
+                    PromptMessage promptMessage = (PromptMessage)session.getAttribute("promptMessage");
+                    if(promptMessage!=null){
+        %>
+        <div class="alert <%= promptMessage.getCssClass() %> text-center"  role="alert">
+            <%= promptMessage.getContent() %>
+        </div>
+        <%
+                        session.removeAttribute("promptMessage");                            
+                    }
+        %>
+        
+        
+        
+        
 
         <!--Start of Profile (in modal)-->
 

@@ -32,6 +32,10 @@
         <servlet-name>DoctorSearchFromPatient</servlet-name>
         <servlet-class>com.shm.careBridge.servlets.DoctorSearchFromPatient</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <servlet-class>com.shm.careBridge.servlets.AppointmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DoctorRegisterServlet</servlet-name>
         <url-pattern>/DoctorRegisterServlet</url-pattern>
@@ -71,5 +75,9 @@
     <servlet-mapping>
         <servlet-name>DoctorSearchFromPatient</servlet-name>
         <url-pattern>/DoctorSearchFromPatient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <url-pattern>/AppointmentServlet</url-pattern>
     </servlet-mapping>
 </web-app>

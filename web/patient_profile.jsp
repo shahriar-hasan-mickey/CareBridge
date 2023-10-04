@@ -64,6 +64,14 @@
 
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
+<!--                    <div class="input-group-prepend">
+                        <div class="input-group-text">-->
+                            <a class="nav-link" id="viewSearchBar" href="#!"><span class="fa fa-search"></span>&nbsp;&nbsp;</a>
+<!--                        </div>
+                    </div>-->
+                    </li>
+                    
+                    <li class="nav-item active">
                         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -96,11 +104,33 @@
         <!--End of NavBar-->
 
 
+        
+
+
+
+        <%
+                    PromptMessage promptMessage = (PromptMessage)session.getAttribute("promptMessage");
+                    if(promptMessage!=null){
+        %>
+        <div class="alert <%= promptMessage.getCssClass() %> text-center"  role="alert">
+            <%= promptMessage.getContent() %>
+        </div>
+        <%
+                        session.removeAttribute("promptMessage");                            
+                    }
+        %>
+
+
+        
+        
         <!--SEARCH BOX-->
-        <div class="container mt-2">
+        <div class="container mt-2" id="searchBar" style="display:none;">
             <form  class="form-inline my-2 my-lg-0" method="post" action="#" id="searchBox">
-                <input name="search" id="search" class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search" width="20px" autocomplete="off"><button id="cancel_search" class="btn btn-primary primary-background" style="display:none;"><i class="fa fa-times"></i></button>
-                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                <input name="search" id="search" class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search" width="20px" autocomplete="off">
+                
+                <div class="input-group-append">
+                    <button id="cancel_search" class="btn btn-primary primary-background" style="display:none;"><i class="fa fa-times"></i></button>
+                </div>
             </form>
             <div class="col-md-6" >
                 <div class="container text-center border " id="loader" style="display:none;">
@@ -110,22 +140,8 @@
                 <div class="container-fluid border mt-1" id="searchBoxResult" style="display:none;"></div>
             </div>
         </div>
-
-
-
-        <%
-                    PromptMessage promptMessage = (PromptMessage)session.getAttribute("promptMessage");
-                    if(promptMessage!=null){
-        %>
-        <div class="alert <%= promptMessage.getCssClass() %>"  role="alert">
-            <%= promptMessage.getContent() %>
-        </div>
-        <%
-                        session.removeAttribute("promptMessage");                            
-                    }
-        %>
-
-
+        
+        
 
         <!--Start of Profile (in modal)-->
 
@@ -409,12 +425,41 @@
                     searchBoxResult.style.display = "";
                     searchBoxResult.innerHTML = data;
                     
-                    clicker = document.getElementById("2");
+                    doctorClicked();
+                });
+            }
+            
+            function doctorClicked(){
+                clicker = document.getElementById("2");
                     clicker.addEventListener("click", ()=>{
                        console.log("clicked");
                     });
-                });
+                    
+                    
             }
+            
+            
+            
+            
+            
+            
+            
+            const viewSearchBar = document.getElementById("viewSearchBar");
+            const searchBar = document.getElementById("searchBar");
+            var searchClickCount = 0;
+            viewSearchBar.addEventListener("click", () => {
+                event.preventDefault();
+                
+                if(searchClickCount === 0){
+                    searchClickCount = 1;
+                    searchBar.style.display = "";
+                }else{
+                    searchClickCount = 0;
+                    searchBar.style.display = "none";
+                }
+                
+                
+            });
         </script>
     </body>
 </html>

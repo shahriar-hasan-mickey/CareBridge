@@ -1,5 +1,15 @@
+
+<%@page import="com.shm.careBridge.entities.Patient" %>
 <%@page import="com.shm.careBridge.entities.PromptMessage" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Patient patient = (Patient)session.getAttribute("currentPatient");
+    if(patient != null){
+        response.sendRedirect("patient_profile.jsp");
+    }
+%>
+
 <!DOCTYPE html>
 <html>
     <head>

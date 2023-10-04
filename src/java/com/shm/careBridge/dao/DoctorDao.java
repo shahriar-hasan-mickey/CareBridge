@@ -159,8 +159,10 @@ public class DoctorDao {
 
 
 
-            doctorList.add(doctor);
+                doctorList.add(doctor);
+                
             }
+//            System.out.println(doctorList.get(1).getFullName());
         } catch (Exception e) {
             e.printStackTrace();
         }
